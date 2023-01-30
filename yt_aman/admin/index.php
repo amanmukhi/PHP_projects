@@ -1,10 +1,7 @@
 <?php
 include "connect.php";
 session_start();
-
 include "auth.php";
-
-
 ?>
 
 
@@ -16,7 +13,7 @@ include "auth.php";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <title>yt aman | Dashboard</title>
+    <title>Dashboard</title>
 
     <!-- Generics -->
     <link rel="icon" href="assets/images/favicon/favicon-32.png" sizes="32x32">

@@ -11,8 +11,12 @@
 
 <body>
     <!-- <h3>How to Disable Right Click using jQuery</h3> -->
-    <h4>Name : <?php echo substr('Aman', 0, 1); ?></h4><br>
-    <h4>Name : <?php echo substr('Mukhi', 0, 1); ?></h4>
+
+    <?php
+    $fname = 'Aman';
+    $lname = 'Mukhi';
+    ?>
+    <h4>Name : <?php echo substr($fname, 0, 1) . substr($lname, 0, 1); ?></h4>
 
     <script>
         // $(document).ready(function() {

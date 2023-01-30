@@ -5,7 +5,7 @@
     <button class="menu-toggler la la-bars" data-toggle="menu"></button>
 
     <!-- Brand -->
-    <span class="brand">yt aman</span>
+    <!-- <span class="brand">yt aman</span> -->
 
     <!-- Right -->
     <div class="flex items-center ltr:ml-auto rtl:mr-auto">
@@ -29,19 +29,24 @@
 
         if (mysqli_num_rows($res) > 0) {
             while ($user = mysqli_fetch_assoc($res)) {
-                $name = $user['fname'] . ' ' . $user['lname'];
+                $fname = $user['fname'];
+                $lname = $user['lname'];
+                // *user data
+                $name = $fname . ' ' . $lname;
+                $short_name = substr($fname, 0, 1) . substr($lname, 0, 1);
+                $skill = $user['skill'];
             }
         } ?>
 
         <!-- User Menu -->
         <div class="dropdown">
             <button class="flex items-center ltr:ml-4 rtl:mr-4" data-toggle="custom-dropdown-menu" data-tippy-arrow="true" data-tippy-placement="bottom-end">
-                <span class="avatar">AM</span>
+                <span class="avatar"><?= ucwords($short_name) ?></span>
             </button>
             <div class="custom-dropdown-menu w-64">
                 <div class="p-5">
                     <h5 class="uppercase"><?= $name ?></h5>
-                    <p>Web Dev</p>
+                    <p><?= ucwords($skill) ?></p>
                 </div>
                 <hr>
                 <div class="p-5">
