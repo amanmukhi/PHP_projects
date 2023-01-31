@@ -1,6 +1,5 @@
 <?php
 include "connect.php";
-session_start();
 include "auth.php";
 ?>
 
@@ -38,8 +37,6 @@ include "auth.php";
     <?php include "layouts/sidebar.php"; ?>
 
 
-
-
     <!-- Workspace -->
     <main class="workspace overflow-hidden">
 
@@ -54,67 +51,6 @@ include "auth.php";
                 </ul>
             </div>
         </section>
-
-        <!-- basic details -->
-        <div class="flex flex-wrap gap-2 items-center ltr:ml-auto rtl:mr-auto mt-5 lg:mt-0">
-            <div class="flex gap-x-2">
-                <!-- Add New -->
-                <button class="btn btn_primary uppercase" data-toggle="modal" data-target="#exampleModalCentered">Add New</button>
-            </div>
-        </div>
-
-        <!-- add new data -->
-        <div id="exampleModalCentered" class="modal" data-animations="fadeInDown, fadeOutUp">
-            <div class="modal-dialog modal-dialog_centered max-w-2xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="modal-title">Add Basic Details</h2>
-                        <button class="close la la-times" data-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="input-group mt-5">
-                            <div class="input-addon input-addon-prepend input-group-item">First and last name</div>
-                            <input class="form-control input-group-item" placeholder="First name">
-                            <input class="form-control input-group-item" placeholder="Last name">
-                        </div>
-
-                        <div class="mt-3">
-
-                            <h3>Synopsis</h3>
-                            <div class="mt-5">
-                                <textarea class="form-control" rows="5"></textarea>
-                            </div>
-                        </div>
-
-
-                        <h3>File Browser</h3>
-                        <div class="mt-5">
-                            <label class="input-group font-normal">
-                                <div class="file-name input-addon input-addon-prepend input-group-item w-full overflow-x-hidden">
-                                    No file chosen</div>
-                                <input type="file" class="hidden">
-                                <div class="input-group-item btn btn_primary uppercase">Choose File</div>
-                            </label>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <label class="switch switch_outlined">
-                            <input type="checkbox">
-                            <span></span>
-                            <span>Published</span>
-                        </label>
-                        <div class="flex ltr:ml-auto rtl:mr-auto">
-                            <button class="btn btn_secondary uppercase" data-dismiss="modal">Close</button>
-                            <button class="btn btn_primary ltr:ml-2 rtl:mr-2 uppercase">Save</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
 
         <div style="margin-bottom: 20px;"></div>
         <!-- List -->
@@ -133,8 +69,6 @@ include "auth.php";
                             <th class="text-center uppercase">Updated At</th>
                             <th class="text-center uppercase">Action</th>
 
-
-                            <th class="uppercase"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -151,58 +85,60 @@ include "auth.php";
                             </td>
                             <td class="text-center">December 15, 2019</td>
 
-
-
+                            <!-- Action Button -->
                             <td class="ltr:text-right rtl:text-left whitespace-nowrap">
                                 <div class="inline-flex ltr:ml-auto rtl:mr-auto">
                                     <a href="#" class="btn btn-icon btn_outlined btn_secondary" data-toggle="modal" data-target="#edithomedata">
                                         <span class="la la-pen-fancy"></span>
                                     </a>
 
+
                                     <!-- add new data -->
                                     <div id="edithomedata" class="modal" data-animations="fadeInDown, fadeOutUp">
                                         <div class="modal-dialog modal-dialog_centered max-w-2xl">
                                             <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h2 class="modal-title">Edit Basic Details</h2>
-                                                    <button class="close la la-times" data-dismiss="modal"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="input-group mt-5">
-                                                        <div class="input-addon input-addon-prepend input-group-item">First and last name</div>
-                                                        <input class="form-control input-group-item" placeholder="First name">
-                                                        <input class="form-control input-group-item" placeholder="Last name">
-                                                    </div>
-
-                                                    <div class="mt-3">
-
-                                                        <h3>Synopsis</h3>
-                                                        <div class="mt-5">
-                                                            <textarea class="form-control" rows="5"></textarea>
+                                                <div class="modal-content">
+                                                    <form method="post" action="action.php" enctype="multipart/form-data">
+                                                        <div class="modal-header">
+                                                            <h2 class="modal-title">Edit Basic Details</h2>
+                                                            <button type="button" class="close la la-times" data-dismiss="modal"></button>
                                                         </div>
-                                                    </div>
+                                                        <div class="modal-body">
 
+                                                            <div class="input-group mt-5">
+                                                                <div class="input-addon input-addon-prepend input-group-item">First and last name</div>
+                                                                <input name="fname" class="form-control input-group-item" value="<?= $fname; ?>" placeholder="<?= $fname; ?>">
+                                                                <input name="lname" class="form-control input-group-item" value="<?= $lname; ?>" placeholder="<?= $lname; ?>">
+                                                            </div>
+                                                            <div class="mt-3">
 
-                                                    <h3>File Browser</h3>
-                                                    <div class="mt-5">
-                                                        <label class="input-group font-normal">
-                                                            <div class="file-name input-addon input-addon-prepend input-group-item w-full overflow-x-hidden">
-                                                                No file chosen</div>
-                                                            <input type="file" class="hidden">
-                                                            <div class="input-group-item btn btn_primary uppercase">Choose File</div>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <label class="switch switch_outlined">
-                                                        <input type="checkbox">
-                                                        <span></span>
-                                                        <span>Published</span>
-                                                    </label>
-                                                    <div class="flex ltr:ml-auto rtl:mr-auto">
-                                                        <button class="btn btn_secondary uppercase" data-dismiss="modal">Close</button>
-                                                        <button class="btn btn_primary ltr:ml-2 rtl:mr-2 uppercase">Save Changes</button>
-                                                    </div>
+                                                                <h3>Synopsis</h3>
+                                                                <div class="mt-5">
+                                                                    <textarea name="synopsis" class="form-control" rows="5">value="<?= $synopsis; ?>"</textarea>
+                                                                </div>
+                                                            </div>
+                                                            <h3>File Browser</h3>
+                                                            <div class="mt-5">
+                                                                <label class="input-group font-normal">
+                                                                    <div class="file-name input-addon input-addon-prepend input-group-item w-full overflow-x-hidden">
+                                                                        No file chosen</div>
+                                                                    <input type="file" name="image" class="hidden">
+                                                                    <div class="input-group-item btn btn_primary uppercase">Choose File</div>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <label class="switch switch_outlined">
+                                                                <input type="checkbox" name="published">
+                                                                <span></span>
+                                                                <span>Published</span>
+                                                            </label>
+                                                            <div class="flex ltr:ml-auto rtl:mr-auto">
+                                                                <button type="button" class="btn btn_secondary uppercase" data-dismiss="modal">Close</button>
+                                                                <button type="submit" name="add_home_BD" class="btn btn_primary ltr:ml-2 rtl:mr-2 uppercase">Save</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

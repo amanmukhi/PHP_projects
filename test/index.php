@@ -11,12 +11,8 @@
 
 <body>
     <!-- <h3>How to Disable Right Click using jQuery</h3> -->
-
-    <?php
-    $fname = 'Aman';
-    $lname = 'Mukhi';
-    ?>
-    <h4>Name : <?php echo substr($fname, 0, 1) . substr($lname, 0, 1); ?></h4>
+    <?php date_default_timezone_set("asia/kolkata"); ?>
+    date : <?php echo date("d-m-Y h:i:s"); ?>
 
     <script>
         // $(document).ready(function() {

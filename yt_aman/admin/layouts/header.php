@@ -35,6 +35,7 @@
                 $name = $fname . ' ' . $lname;
                 $short_name = substr($fname, 0, 1) . substr($lname, 0, 1);
                 $skill = $user['skill'];
+                $synopsis = $user['synopsis'];
             }
         } ?>
 

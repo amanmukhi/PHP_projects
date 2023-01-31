@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 // check session
 if (!$_SESSION['user_id']) {
@@ -7,6 +8,6 @@ if (!$_SESSION['user_id']) {
 
 // logout button and set session = null
 if (isset($_POST['logout'])) {
-    $_SESSION['username'] = null;
+    $_SESSION['user_id'] = null;
     header("location: login.php");
 }
