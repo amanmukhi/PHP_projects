@@ -27,6 +27,15 @@ include "auth.php";
     <link rel="apple-touch-icon" href="assets/images/favicon/favicon-180.png" sizes="180x180">
 
     <link rel="stylesheet" href="assets/css/style.css" />
+
+    <style>
+        #img_url {
+            background: #ddd;
+            width: 250px;
+            height: 150px;
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
@@ -65,7 +74,6 @@ include "auth.php";
                             <th class="text-center uppercase">Last Name</th>
                             <th class="ltr:text-left rtl:text-right uppercase">Synopsis</th>
                             <th class="text-center uppercase">Image</th>
-                            <th class="text-center uppercase">Published</th>
                             <th class="text-center uppercase">Updated At</th>
                             <th class="text-center uppercase">Action</th>
 
@@ -74,16 +82,12 @@ include "auth.php";
                     <tbody>
                         <tr>
 
-                            <td class="text-center">1</td>
-                            <td class="text-center">Aman</td>
-                            <td class="text-center">Mukhi</td>
-                            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-                            <td></td>
-                            <td class="text-center">
-                                <!-- <div class="badge badge_outlined badge_secondary uppercase">Draft</div> -->
-                                <div class="badge badge_outlined badge_success uppercase">Published</div>
-                            </td>
-                            <td class="text-center">December 15, 2019</td>
+                            <td class="text-center"><?= $id ?></td>
+                            <td class="text-center"><?= $fname ?></td>
+                            <td class="text-center"><?= $lname ?></td>
+                            <td class="text-center"><?= $synopsis ?></td>
+                            <td class="text-center"><img width="250px" src="assets/images/<?= $img_name ?>" alt="<?= $img_name ?>"></td>
+                            <td class="text-center"><?= $updated_at ?></td>
 
                             <!-- Action Button -->
                             <td class="ltr:text-right rtl:text-left whitespace-nowrap">
@@ -111,31 +115,31 @@ include "auth.php";
                                                                 <input name="lname" class="form-control input-group-item" value="<?= $lname; ?>" placeholder="<?= $lname; ?>">
                                                             </div>
                                                             <div class="mt-3">
-
-                                                                <h3>Synopsis</h3>
                                                                 <div class="mt-5">
-                                                                    <textarea name="synopsis" class="form-control" rows="5">value="<?= $synopsis; ?>"</textarea>
+                                                                    <textarea name="synopsis" class="form-control" rows="5"><?= $synopsis; ?></textarea>
                                                                 </div>
                                                             </div>
-                                                            <h3>File Browser</h3>
                                                             <div class="mt-5">
                                                                 <label class="input-group font-normal">
                                                                     <div class="file-name input-addon input-addon-prepend input-group-item w-full overflow-x-hidden">
                                                                         No file chosen</div>
-                                                                    <input type="file" name="image" class="hidden">
+
+
+                                                                    <br>
+                                                                    <input type="file" id="img_file" name="image" class="hidden" onChange="img_pathUrl(this);">
                                                                     <div class="input-group-item btn btn_primary uppercase">Choose File</div>
+
                                                                 </label>
+                                                            </div>
+                                                            <div class="mt-5">
+
+                                                                <img src="assets/images/<?= $img_name ?>" id="img_url" alt="your image">
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <label class="switch switch_outlined">
-                                                                <input type="checkbox" name="published">
-                                                                <span></span>
-                                                                <span>Published</span>
-                                                            </label>
                                                             <div class="flex ltr:ml-auto rtl:mr-auto">
                                                                 <button type="button" class="btn btn_secondary uppercase" data-dismiss="modal">Close</button>
-                                                                <button type="submit" name="add_home_BD" class="btn btn_primary ltr:ml-2 rtl:mr-2 uppercase">Save</button>
+                                                                <button type="submit" name="edit_home_BD" class="btn btn_primary ltr:ml-2 rtl:mr-2 uppercase">Save</button>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -144,9 +148,6 @@ include "auth.php";
                                         </div>
                                     </div>
 
-                                    <a href="#" class="btn btn-icon btn_outlined btn_danger ltr:ml-2 rtl:mr-2">
-                                        <span class="la la-trash-alt"></span>
-                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -168,36 +169,37 @@ include "auth.php";
         <div id="exampleModal" class="modal" data-animations="fadeInDown, fadeOutUp">
             <div class="modal-dialog modal-dialog_centered max-w-2xl">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="modal-title">Add Social Media</h2>
-                        <button class="close la la-times" data-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
+                    <form method="post" action="action.php" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <h2 class="modal-title">Add Social Media</h2>
+                            <button type="button" class="close la la-times" data-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group mt-5">
+                                <div class="input-addon input-addon-prepend input-group-item">Platform : </div>
+                                <input name="platform" class="form-control input-group-item" placeholder="platform">
+                            </div>
+                            <div class="input-group mt-5">
+                                <div class="input-addon input-addon-prepend input-group-item">Link : </div>
+                                <input name="link" class="form-control input-group-item" placeholder="link">
+                            </div>
+                            <div class="mt-5">
+                                <label class="switch switch_outlined">
+                                    <input type="checkbox" name="status">
+                                    <span></span>
+                                    <span>Published </span>
+                                </label>
+                            </div>
 
-                        <div class="input-group mt-5">
-                            <div class="input-addon input-addon-prepend input-group-item">Platform : </div>
-                            <input class="form-control input-group-item" placeholder="platform">
                         </div>
-                        <div class="input-group mt-5">
-                            <div class="input-addon input-addon-prepend input-group-item">Link : </div>
-                            <input class="form-control input-group-item" placeholder="link">
-                        </div>
-                        <div class="mt-5">
-                            <label class="switch switch_outlined">
-                                <input type="checkbox">
-                                <span></span>
-                                <span>Published </span>
-                            </label>
-                        </div>
+                        <div class="modal-footer">
 
-                    </div>
-                    <div class="modal-footer">
-
-                        <div class="flex ltr:ml-auto rtl:mr-auto">
-                            <button class="btn btn_secondary uppercase" data-dismiss="modal">Close</button>
-                            <button class="btn btn_primary ltr:ml-2 rtl:mr-2 uppercase">Save</button>
+                            <div class="flex ltr:ml-auto rtl:mr-auto">
+                                <button type="button" class="btn btn_secondary uppercase" data-dismiss="modal">Close</button>
+                                <button type="submit" name="add_home_SM" class="btn btn_primary ltr:ml-2 rtl:mr-2 uppercase">Save</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -213,7 +215,8 @@ include "auth.php";
                             <th class="text-center uppercase">Sl no.</th>
                             <th class="text-center uppercase">Platform</th>
                             <th class="ltr:text-left rtl:text-right uppercase">Link</th>
-                            <th class="text-center uppercase">Published</th>
+                            <th class="text-center uppercase">Status</th>
+                            <th class="text-center uppercase">Created At</th>
                             <th class="text-center uppercase">Updated At</th>
                             <th class="text-center uppercase">Action</th>
 
@@ -221,63 +224,81 @@ include "auth.php";
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
 
-                            <td class="text-center">1</td>
-                            <td class="text-center">Facebook</td>
-                            <td>https://facebook.com</td>
-                            <td class="text-center">
-                                <div class="badge badge_outlined badge_secondary uppercase">Draft</div>
-                            </td>
-                            <td class="text-center">December 15, 2019</td>
-                            <td class="ltr:text-right rtl:text-left whitespace-nowrap">
-                                <div class="inline-flex ltr:ml-auto rtl:mr-auto">
-                                    <a href="#" class="btn btn-icon btn_outlined btn_secondary" data-toggle="modal" data-target="#exampleModaledit">
-                                        <span class=" la la-pen-fancy"></span>
-                                    </a>
-                                    <!-- edit social media -->
-                                    <div id="exampleModaledit" class="modal" data-animations="fadeInDown, fadeOutUp">
-                                        <div class="modal-dialog modal-dialog_centered max-w-2xl">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h2 class="modal-title">Edit Social Media</h2>
-                                                    <button class="close la la-times" data-dismiss="modal"></button>
-                                                </div>
-                                                <div class="modal-body">
+                        <?php
 
-                                                    <div class="input-group mt-5">
-                                                        <div class="input-addon input-addon-prepend input-group-item">Platform : </div>
-                                                        <input class="form-control input-group-item" placeholder="platform">
-                                                    </div>
-                                                    <div class="input-group mt-5">
-                                                        <div class="input-addon input-addon-prepend input-group-item">Link : </div>
-                                                        <input class="form-control input-group-item" placeholder="link">
-                                                    </div>
-                                                    <div class="mt-5">
-                                                        <label class="switch switch_outlined">
-                                                            <input type="checkbox">
-                                                            <span></span>
-                                                            <span>Published </span>
-                                                        </label>
-                                                    </div>
+                        $sql = "SELECT * FROM social_media";
+                        $res = mysqli_query($conn, $sql);
 
-                                                </div>
-                                                <div class="modal-footer">
 
-                                                    <div class="flex ltr:ml-auto rtl:mr-auto">
-                                                        <button class="btn btn_secondary uppercase" data-dismiss="modal">Close</button>
-                                                        <button class="btn btn_primary ltr:ml-2 rtl:mr-2 uppercase">Save Changes</button>
+                        if (mysqli_num_rows($res) > 0) {
+                            while ($row = mysqli_fetch_assoc($res)) { ?>
+                                <tr>
+                                    <td class="text-center"><?= $row['id']; ?></td>
+                                    <td class="text-center"><?= $row['platform']; ?></td>
+                                    <td><?= $row['link']; ?></td>
+                                    <td class="text-center">
+                                        <?php if ($row['status'] == 'active') { ?>
+                                            <div class="badge badge_outlined badge_secondary uppercase">Active</div>
+                                        <?php } else { ?>
+                                            <div class="badge badge_outlined badge_secondary uppercase">Inactive</div>
+                                        <?php }
+                                        ?>
+                                    </td>
+                                    <td class="text-center"><?= $row['created_at']; ?></td>
+                                    <td class="text-center"><?= $row['updated_at']; ?></td>
+                                    <td class="ltr:text-right rtl:text-left whitespace-nowrap">
+                                        <div class="inline-flex ltr:ml-auto rtl:mr-auto">
+                                            <a href="#" class="btn btn-icon btn_outlined btn_secondary" data-toggle="modal" data-target="#exampleModaledit">
+                                                <span class=" la la-pen-fancy"></span>
+                                            </a>
+                                            <!-- edit social media -->
+                                            <div id="exampleModaledit" class="modal" data-animations="fadeInDown, fadeOutUp">
+                                                <div class="modal-dialog modal-dialog_centered max-w-2xl">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h2 class="modal-title">Edit Social Media</h2>
+                                                            <button class="close la la-times" data-dismiss="modal"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+
+                                                            <div class="input-group mt-5">
+                                                                <div class="input-addon input-addon-prepend input-group-item">Platform : </div>
+                                                                <input class="form-control input-group-item" placeholder="platform">
+                                                            </div>
+                                                            <div class="input-group mt-5">
+                                                                <div class="input-addon input-addon-prepend input-group-item">Link : </div>
+                                                                <input class="form-control input-group-item" placeholder="link">
+                                                            </div>
+                                                            <div class="mt-5">
+                                                                <label class="switch switch_outlined">
+                                                                    <input type="checkbox">
+                                                                    <span></span>
+                                                                    <span>Published </span>
+                                                                </label>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+
+                                                            <div class="flex ltr:ml-auto rtl:mr-auto">
+                                                                <button class="btn btn_secondary uppercase" data-dismiss="modal">Close</button>
+                                                                <button class="btn btn_primary ltr:ml-2 rtl:mr-2 uppercase">Save Changes</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <a href="#" class="btn btn-icon btn_outlined btn_danger ltr:ml-2 rtl:mr-2">
+                                                <span class="la la-trash-alt"></span>
+                                            </a>
                                         </div>
-                                    </div>
-                                    <a href="#" class="btn btn-icon btn_outlined btn_danger ltr:ml-2 rtl:mr-2">
-                                        <span class="la la-trash-alt"></span>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
+                                    </td>
+                                </tr>
+                        <?php }
+                        }
+                        ?>
+
 
                     </tbody>
                 </table>
@@ -296,6 +317,16 @@ include "auth.php";
     <!-- Scripts -->
     <script src="assets/js/vendor.js"></script>
     <script src="assets/js/script.js"></script>
+
+    <!-- jquery cdn link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- show image -->
+    <script>
+        function img_pathUrl(input) {
+            $('#img_url')[0].src = (window.URL ? URL : webkitURL).createObjectURL(input.files[0]);
+        }
+    </script>
 
 </body>
 

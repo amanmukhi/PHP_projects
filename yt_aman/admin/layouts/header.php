@@ -29,6 +29,7 @@
 
         if (mysqli_num_rows($res) > 0) {
             while ($user = mysqli_fetch_assoc($res)) {
+                $id = $user['id'];
                 $fname = $user['fname'];
                 $lname = $user['lname'];
                 // *user data
@@ -36,6 +37,8 @@
                 $short_name = substr($fname, 0, 1) . substr($lname, 0, 1);
                 $skill = $user['skill'];
                 $synopsis = $user['synopsis'];
+                $img_name = $user['img_name'];
+                $updated_at = $user['updated_at'];
             }
         } ?>
 

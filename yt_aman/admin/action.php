@@ -5,28 +5,24 @@ include "auth.php";
 
 date_default_timezone_set("asia/kolkata");
 
-// upload image 
-if (isset($_POST['add_home_BD'])) {
-
-    // echo '<pre>';
-    // print_r($_POST);
-    // print_r($_FILES['image']);
-    // echo "</pre>";
-    // die;
+// Edit Home Basic Details 
+if (isset($_POST['edit_home_BD'])) {
 
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
     $synopsis = $_POST['synopsis'];
-    if ($_POST['published'] == 'on') {
-        $status = 'PUBLISHED';
-    } else {
-        $status = 'DRAFT';
-    }
     $updated_at = date("d-m-Y h:i:s");
     $img_name = $_FILES['image']['name'];
     $img_size = $_FILES['image']['size'];
     $tmp_name = $_FILES['image']['tmp_name'];
     $error = $_FILES['image']['error'];
+
+    // echo '<pre>';
+    // print_r($_POST);
+    // echo 'Updated AT : ' . $updated_at . '<br>';
+    // print_r($_FILES['image']);
+    // echo "</pre>";
+    // die;
 
     if ($error === 0) {
 
@@ -44,11 +40,12 @@ if (isset($_POST['add_home_BD'])) {
             $img_path = 'assets/images/' . $new_img_name;
 
             // Insert into Database
-            $insert_data = "INSERT INTO user( `fname`, `lname`, `synopsis`, `status`, `img_name`, `img_path`, `updated_at`) VALUES ('$fname','$lname','$synopsis', '$status','$new_img_name','$img_path','$updated_at')";
-            $insert_image = mysqli_query($conn, $insert_data);
 
-            if ($insert_image) {
-                $_SESSION['error_msg'] = 'Add Image Successfully';
+            $update_data = "UPDATE `user` SET `fname`='$fname',`lname`='$lname', `synopsis`='$synopsis',`img_name`='$new_img_name',`img_path`='$img_path',`updated_at`='$updated_at' WHERE 1";
+            $check_sql = mysqli_query($conn, $update_data);
+
+            if ($check_sql) {
+                $_SESSION['error_msg'] = 'Edit Successfully';
                 header("Location: home.php");
             }
         } else {
@@ -56,7 +53,35 @@ if (isset($_POST['add_home_BD'])) {
             header("Location: home.php");
         }
     } else {
-        $em = "unknown error occurred!";
-        header("Location: home.php?error=$em");
+        $update_data = "UPDATE `user` SET `fname`='$fname',`lname`='$lname', `synopsis`='$synopsis',`updated_at`='$updated_at' WHERE 1";
+        $check_sql = mysqli_query($conn, $update_data);
+
+        if ($check_sql) {
+            $_SESSION['error_msg'] = 'Edit Successfully';
+            header("Location: home.php");
+        }
+    }
+}
+if (isset($_POST['add_home_SM'])) {
+
+    $platform = $_POST['platform'];
+    $link = $_POST['link'];
+    if ($_POST['status'] == 'on') {
+        $status = 'active';
+    } else {
+        $status = 'inactive';
+    }
+    $created_at = date("d-m-Y h:i:s");
+    $updated_at = date("d-m-Y h:i:s");
+
+    // echo '<pre>';
+    // print_r($_POST);
+    // die;
+
+    $insert_data = "INSERT INTO `social_media`(`platform`, `link`, `status`, `created_at`, `updated_at`) VALUES ('$platform','$link','$status','$created_at','$updated_at')";
+    $check_sql = mysqli_query($conn, $insert_data);
+    if ($check_sql) {
+        $_SESSION['error_msg'] = 'Added Successfully';
+        header("Location: home.php");
     }
 }
