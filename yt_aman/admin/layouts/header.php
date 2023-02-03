@@ -21,8 +21,6 @@
 
 
         <?php
-
-        $i = 1;
         $sql = "SELECT * FROM user";
         $res = mysqli_query($conn, $sql);
 

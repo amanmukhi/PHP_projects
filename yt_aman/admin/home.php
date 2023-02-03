@@ -31,8 +31,8 @@ include "auth.php";
     <style>
         #img_url {
             background: #ddd;
-            width: 250px;
-            height: 150px;
+            width: 170px;
+            height: 200px;
             display: block;
         }
     </style>
@@ -86,7 +86,7 @@ include "auth.php";
                             <td class="text-center"><?= $fname ?></td>
                             <td class="text-center"><?= $lname ?></td>
                             <td class="text-center"><?= $synopsis ?></td>
-                            <td class="text-center"><img width="250px" src="assets/images/<?= $img_name ?>" alt="<?= $img_name ?>"></td>
+                            <td class="text-center"><img width="150px" src="../assets/img/slider/<?= $img_name ?>" alt="<?= $img_name ?>"></td>
                             <td class="text-center"><?= $updated_at ?></td>
 
                             <!-- Action Button -->
@@ -133,7 +133,7 @@ include "auth.php";
                                                             </div>
                                                             <div class="mt-5">
 
-                                                                <img src="assets/images/<?= $img_name ?>" id="img_url" alt="your image">
+                                                                <img src="../assets/img/slider/<?= $img_name ?>" id="img_url" alt="your image">
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
@@ -156,16 +156,17 @@ include "auth.php";
                 </table>
             </div>
         </div>
+
         <div style="margin-bottom: 30px;"></div>
 
-        <!-- social media -->
+        <!-- Add social media -->
         <div class="flex flex-wrap gap-2 items-center ltr:ml-auto rtl:mr-auto mt-5 lg:mt-0">
             <div class="flex gap-x-2">
-                <!-- Add New -->
+                <!-- Add social media button -->
                 <button class="btn btn_primary uppercase" data-toggle="modal" data-target="#exampleModal">Add New</button>
             </div>
         </div>
-        <!-- add new data -->
+        <!-- Add social media -->
         <div id="exampleModal" class="modal" data-animations="fadeInDown, fadeOutUp">
             <div class="modal-dialog modal-dialog_centered max-w-2xl">
                 <div class="modal-content">
@@ -249,47 +250,59 @@ include "auth.php";
                                     <td class="text-center"><?= $row['updated_at']; ?></td>
                                     <td class="ltr:text-right rtl:text-left whitespace-nowrap">
                                         <div class="inline-flex ltr:ml-auto rtl:mr-auto">
-                                            <a href="#" class="btn btn-icon btn_outlined btn_secondary" data-toggle="modal" data-target="#exampleModaledit">
+                                            <a href="#" class="btn btn-icon btn_outlined btn_secondary" data-toggle="modal" data-target="#exampleModaledit<?= $row['id']; ?>">
                                                 <span class=" la la-pen-fancy"></span>
                                             </a>
-                                            <!-- edit social media -->
-                                            <div id="exampleModaledit" class="modal" data-animations="fadeInDown, fadeOutUp">
+
+                                            <!-- add new data -->
+                                            <div id="exampleModaledit<?= $row['id']; ?>" class="modal" data-animations="fadeInDown, fadeOutUp">
                                                 <div class="modal-dialog modal-dialog_centered max-w-2xl">
                                                     <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h2 class="modal-title">Edit Social Media</h2>
-                                                            <button class="close la la-times" data-dismiss="modal"></button>
-                                                        </div>
-                                                        <div class="modal-body">
+                                                        <form method="post" action="action.php" enctype="multipart/form-data">
+                                                            <input type="hidden" name="id" value="<?= $row['id']; ?>">
+                                                            <div class="modal-header">
+                                                                <h2 class="modal-title">Edit Social Media</h2>
+                                                                <button type="button" class="close la la-times" data-dismiss="modal"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="input-group mt-5">
+                                                                    <div class="input-addon input-addon-prepend input-group-item">Platform : </div>
+                                                                    <input name="platform" value="<?= $row['platform']; ?>" class="form-control input-group-item" placeholder="<?= $row['platform']; ?>">
+                                                                </div>
+                                                                <div class="input-group mt-5">
+                                                                    <div class="input-addon input-addon-prepend input-group-item">Link : </div>
+                                                                    <input name="link" value="<?= $row['link']; ?>" class="form-control input-group-item" placeholder="<?= $row['link']; ?>">
+                                                                </div>
+                                                                <div class="mt-5">
+                                                                    <label class="switch switch_outlined">
+                                                                        <?php
+                                                                        if ($row['status'] == 'active') { ?>
+                                                                            <input type="checkbox" value="<?= $row['status'] ?>" name="status" checked>
 
-                                                            <div class="input-group mt-5">
-                                                                <div class="input-addon input-addon-prepend input-group-item">Platform : </div>
-                                                                <input class="form-control input-group-item" placeholder="platform">
-                                                            </div>
-                                                            <div class="input-group mt-5">
-                                                                <div class="input-addon input-addon-prepend input-group-item">Link : </div>
-                                                                <input class="form-control input-group-item" placeholder="link">
-                                                            </div>
-                                                            <div class="mt-5">
-                                                                <label class="switch switch_outlined">
-                                                                    <input type="checkbox">
-                                                                    <span></span>
-                                                                    <span>Published </span>
-                                                                </label>
-                                                            </div>
+                                                                        <?php } else { ?>
+                                                                            <input type="checkbox" value="<?= $row['status'] ?>" name="status">
 
-                                                        </div>
-                                                        <div class="modal-footer">
+                                                                        <?php }
+                                                                        ?>
 
-                                                            <div class="flex ltr:ml-auto rtl:mr-auto">
-                                                                <button class="btn btn_secondary uppercase" data-dismiss="modal">Close</button>
-                                                                <button class="btn btn_primary ltr:ml-2 rtl:mr-2 uppercase">Save Changes</button>
+                                                                        <span></span>
+                                                                        <span>Published </span>
+                                                                    </label>
+                                                                </div>
+
                                                             </div>
-                                                        </div>
+                                                            <div class="modal-footer">
+
+                                                                <div class="flex ltr:ml-auto rtl:mr-auto">
+                                                                    <button type="button" class="btn btn_secondary uppercase" data-dismiss="modal">Close</button>
+                                                                    <button type="submit" name="edit_home_SM" class="btn btn_primary ltr:ml-2 rtl:mr-2 uppercase">Save</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="#" class="btn btn-icon btn_outlined btn_danger ltr:ml-2 rtl:mr-2">
+                                            <a href="action.php?id=<?= $row['id']; ?>" class="btn btn-icon btn_outlined btn_danger ltr:ml-2 rtl:mr-2">
                                                 <span class="la la-trash-alt"></span>
                                             </a>
                                         </div>
@@ -304,10 +317,6 @@ include "auth.php";
                 </table>
             </div>
         </div>
-
-
-
-
 
         <!-- Footer -->
         <?php include "layouts/footer.php"; ?>

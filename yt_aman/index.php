@@ -1,4 +1,5 @@
 <?php
+include "admin/connect.php";
 
 //  header 
 include "layouts/header.php";

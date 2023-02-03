@@ -35,11 +35,11 @@ if (isset($_POST['edit_home_BD'])) {
 
             $time_stamp = date("Ymd-his");
             $new_img_name = "IMG-" . $time_stamp . '.' . $img_ex_lc;
-            move_uploaded_file($tmp_name, 'assets/images/' . $new_img_name);
+            move_uploaded_file($tmp_name, '../assets/img/slider/' . $new_img_name);
 
-            $img_path = 'assets/images/' . $new_img_name;
+            $img_path = '../assets/img/slider/' . $new_img_name;
 
-            // Insert into Database
+            // update into Database
 
             $update_data = "UPDATE `user` SET `fname`='$fname',`lname`='$lname', `synopsis`='$synopsis',`img_name`='$new_img_name',`img_path`='$img_path',`updated_at`='$updated_at' WHERE 1";
             $check_sql = mysqli_query($conn, $update_data);
@@ -62,6 +62,7 @@ if (isset($_POST['edit_home_BD'])) {
         }
     }
 }
+// add home social media
 if (isset($_POST['add_home_SM'])) {
 
     $platform = $_POST['platform'];
@@ -82,6 +83,45 @@ if (isset($_POST['add_home_SM'])) {
     $check_sql = mysqli_query($conn, $insert_data);
     if ($check_sql) {
         $_SESSION['error_msg'] = 'Added Successfully';
+        header("Location: home.php");
+    }
+}
+// edit home social media
+if (isset($_POST['edit_home_SM'])) {
+
+    // get id
+    $id = $_POST['id'];
+    $platform = $_POST['platform'];
+    $link = $_POST['link'];
+    if (isset($_POST['status'])) {
+        $status = 'active';
+    } else {
+        $status = 'inactive';
+    }
+    $updated_at = date("d-m-Y h:i:s");
+
+    // echo '<pre>';
+    // print_r($_POST);
+    // echo $id;
+    // die;
+
+    $update_data = "UPDATE `social_media` SET `platform`='$platform',`link`='$link', `status`='$status',`updated_at`='$updated_at' WHERE `id` = $id";
+    $check_sql = mysqli_query($conn, $update_data);
+
+    if ($check_sql) {
+        $_SESSION['error_msg'] = 'Added Successfully';
+        header("Location: home.php");
+    }
+}
+// delete home social media
+if (isset($_GET['id'])) {
+
+    $id = $_GET['id'];
+
+    $del_data = "DELETE FROM `social_media` WHERE `id`= $id";
+    $check_sql = mysqli_query($conn, $del_data);
+    if ($check_sql) {
+        $_SESSION['error_msg'] = 'Delete Successfully';
         header("Location: home.php");
     }
 }
