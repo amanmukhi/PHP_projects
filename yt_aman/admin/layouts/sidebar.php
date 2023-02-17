@@ -31,7 +31,7 @@
                  Home
              </a>
 
-             <a href="#">
+             <a href="about.php">
                  <span class="la la-edit"></span>
                  About
              </a>
