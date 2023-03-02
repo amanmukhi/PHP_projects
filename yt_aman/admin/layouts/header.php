@@ -33,7 +33,7 @@
                 // *user data
                 $name = $fname . ' ' . $lname;
                 $short_name = substr($fname, 0, 1) . substr($lname, 0, 1);
-                $skill = $user['skill'];
+                $designation = $user['designation'];
                 $synopsis = $user['synopsis'];
                 $img_name = $user['img_name'];
                 $updated_at = $user['updated_at'];

@@ -97,7 +97,7 @@ include "auth.php";
                                     </a>
 
 
-                                    <!-- add new data -->
+                                    <!-- edit data -->
                                     <div id="edithomedata" class="modal" data-animations="fadeInDown, fadeOutUp">
                                         <div class="modal-dialog modal-dialog_centered max-w-2xl">
                                             <div class="modal-content">

@@ -31,8 +31,8 @@ include "auth.php";
     <style>
         #img_url {
             background: #ddd;
-            width: 170px;
-            height: 200px;
+            width: 125px;
+            height: auto;
             display: block;
         }
     </style>
@@ -62,6 +62,9 @@ include "auth.php";
         </section>
 
         <div style="margin-bottom: 20px;"></div>
+
+
+
         <!-- List -->
         <div class="card p-5">
             <div class="overflow-x-auto">
@@ -69,10 +72,10 @@ include "auth.php";
                     <thead>
                         <tr>
 
-                            <th class="text-center uppercase">Id</th>
-                            <th class="text-center uppercase">First Name</th>
-                            <th class="text-center uppercase">Last Name</th>
-                            <th class="ltr:text-left rtl:text-right uppercase">Synopsis</th>
+                            <!-- <th class="text-center uppercase">Id</th> -->
+                            <th class="text-center uppercase">Name</th>
+                            <th class="text-center uppercase">Designation</th>
+                            <th class="rtl:text-right uppercase">Synopsis</th>
                             <th class="text-center uppercase">Image</th>
                             <th class="text-center uppercase">Updated At</th>
                             <th class="text-center uppercase">Action</th>
@@ -82,11 +85,12 @@ include "auth.php";
                     <tbody>
                         <tr>
 
-                            <td class="text-center"><?= $id ?></td>
-                            <td class="text-center"><?= $fname ?></td>
-                            <td class="text-center"><?= $lname ?></td>
-                            <td class="text-center"><?= $synopsis ?></td>
-                            <td class="text-center"><img width="150px" src="../assets/img/slider/<?= $img_name ?>" alt="<?= $img_name ?>"></td>
+                            <!-- <td class="text-center"><?= $id ?></td> -->
+                            <td class="text-center"><?= $fname.' '.$lname ?></td>
+                            <td class="text-center"><?= $designation ?></td>
+                            <td class="text-center"><?php  echo substr($synopsis, 0,30).'...' ?></td>
+                            <td></td>
+                            <!-- <td class="text-center"><img width="100px" src="../assets/img/slider/<?= $img_name ?>" alt="<?= $img_name ?>"></td> -->
                             <td class="text-center"><?= $updated_at ?></td>
 
                             <!-- Action Button -->
@@ -97,14 +101,14 @@ include "auth.php";
                                     </a>
 
 
-                                    <!-- add new data -->
+                                    <!-- edit data -->
                                     <div id="edithomedata" class="modal" data-animations="fadeInDown, fadeOutUp">
                                         <div class="modal-dialog modal-dialog_centered max-w-2xl">
                                             <div class="modal-content">
                                                 <div class="modal-content">
                                                     <form method="post" action="action.php" enctype="multipart/form-data">
                                                         <div class="modal-header">
-                                                            <h2 class="modal-title">Edit Basic Details</h2>
+                                                            <h2 class="modal-title">Edit Data</h2>
                                                             <button type="button" class="close la la-times" data-dismiss="modal"></button>
                                                         </div>
                                                         <div class="modal-body">
@@ -113,6 +117,10 @@ include "auth.php";
                                                                 <div class="input-addon input-addon-prepend input-group-item">First and last name</div>
                                                                 <input name="fname" class="form-control input-group-item" value="<?= $fname; ?>" placeholder="<?= $fname; ?>">
                                                                 <input name="lname" class="form-control input-group-item" value="<?= $lname; ?>" placeholder="<?= $lname; ?>">
+                                                            </div>
+                                                            <div class="relative mt-5">
+                                                                <label class="label absolute block bg-input border border-border rounded top-0 ltr:ml-4 rtl:mr-4 px-2 font-heading" for="input-2">Designation</label>
+                                                                <input name="designation" class="form-control mt-2 pt-5" placeholder="<?= $designation; ?>" value="<?= $designation; ?>">
                                                             </div>
                                                             <div class="mt-3">
                                                                 <div class="mt-5">
@@ -139,7 +147,7 @@ include "auth.php";
                                                         <div class="modal-footer">
                                                             <div class="flex ltr:ml-auto rtl:mr-auto">
                                                                 <button type="button" class="btn btn_secondary uppercase" data-dismiss="modal">Close</button>
-                                                                <button type="submit" name="edit_home_BD" class="btn btn_primary ltr:ml-2 rtl:mr-2 uppercase">Save</button>
+                                                                <button type="submit" name="edit_about_1" class="btn btn_primary ltr:ml-2 rtl:mr-2 uppercase">Save</button>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -157,55 +165,8 @@ include "auth.php";
             </div>
         </div>
 
-        <div style="margin-bottom: 30px;"></div>
-
-        <!-- Add social media -->
-        <div class="flex flex-wrap gap-2 items-center ltr:ml-auto rtl:mr-auto mt-5 lg:mt-0">
-            <div class="flex gap-x-2">
-                <!-- Add social media button -->
-                <button class="btn btn_primary uppercase" data-toggle="modal" data-target="#exampleModal">Add New</button>
-            </div>
-        </div>
-        <!-- Add social media -->
-        <div id="exampleModal" class="modal" data-animations="fadeInDown, fadeOutUp">
-            <div class="modal-dialog modal-dialog_centered max-w-2xl">
-                <div class="modal-content">
-                    <form method="post" action="action.php" enctype="multipart/form-data">
-                        <div class="modal-header">
-                            <h2 class="modal-title">Add Social Media</h2>
-                            <button type="button" class="close la la-times" data-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="input-group mt-5">
-                                <div class="input-addon input-addon-prepend input-group-item">Platform : </div>
-                                <input name="platform" class="form-control input-group-item" placeholder="platform">
-                            </div>
-                            <div class="input-group mt-5">
-                                <div class="input-addon input-addon-prepend input-group-item">Link : </div>
-                                <input name="link" class="form-control input-group-item" placeholder="link">
-                            </div>
-                            <div class="mt-5">
-                                <label class="switch switch_outlined">
-                                    <input type="checkbox" name="status">
-                                    <span></span>
-                                    <span>Published </span>
-                                </label>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-
-                            <div class="flex ltr:ml-auto rtl:mr-auto">
-                                <button type="button" class="btn btn_secondary uppercase" data-dismiss="modal">Close</button>
-                                <button type="submit" name="add_home_SM" class="btn btn_primary ltr:ml-2 rtl:mr-2 uppercase">Save</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
         <div style="margin-bottom: 20px;"></div>
+
         <!-- List -->
         <div class="card p-5">
             <div class="overflow-x-auto">
@@ -213,11 +174,11 @@ include "auth.php";
                     <thead>
                         <tr>
 
-                            <th class="text-center uppercase">Sl no.</th>
-                            <th class="text-center uppercase">Platform</th>
-                            <th class="ltr:text-left rtl:text-right uppercase">Link</th>
-                            <th class="text-center uppercase">Status</th>
-                            <th class="text-center uppercase">Created At</th>
+                            <th class="text-center uppercase">DOB</th>
+                            <th class="text-center uppercase">Age</th>
+                            <th class="text-center uppercase">Address</th>
+                            <th class="text-center uppercase">Email</th>
+                            <th class="text-center uppercase">Phone</th>
                             <th class="text-center uppercase">Updated At</th>
                             <th class="text-center uppercase">Action</th>
 
@@ -228,25 +189,18 @@ include "auth.php";
 
                         <?php
 
-                        $sql = "SELECT * FROM social_media";
+                        $sql = "SELECT * FROM user";
                         $res = mysqli_query($conn, $sql);
 
 
                         if (mysqli_num_rows($res) > 0) {
                             while ($row = mysqli_fetch_assoc($res)) { ?>
                                 <tr>
-                                    <td class="text-center"><?= $row['id']; ?></td>
-                                    <td class="text-center"><?= $row['platform']; ?></td>
-                                    <td><?= $row['link']; ?></td>
-                                    <td class="text-center">
-                                        <?php if ($row['status'] == 'active') { ?>
-                                            <div class="badge badge_outlined badge_secondary uppercase">Active</div>
-                                        <?php } else { ?>
-                                            <div class="badge badge_outlined badge_secondary uppercase">Inactive</div>
-                                        <?php }
-                                        ?>
-                                    </td>
-                                    <td class="text-center"><?= $row['created_at']; ?></td>
+                                    <td class="text-center"><?= $row['dob']; ?></td>
+                                    <td class="text-center"><?= $row['age']; ?></td>
+                                    <td class="text-center"><?= $row['address']; ?></td>
+                                    <td class="text-center"><?= $row['email']; ?></td>
+                                    <td class="text-center">+91 <?= $row['phone']; ?></td>
                                     <td class="text-center"><?= $row['updated_at']; ?></td>
                                     <td class="ltr:text-right rtl:text-left whitespace-nowrap">
                                         <div class="inline-flex ltr:ml-auto rtl:mr-auto">
@@ -261,18 +215,36 @@ include "auth.php";
                                                         <form method="post" action="action.php" enctype="multipart/form-data">
                                                             <input type="hidden" name="id" value="<?= $row['id']; ?>">
                                                             <div class="modal-header">
-                                                                <h2 class="modal-title">Edit Social Media</h2>
+                                                                <h2 class="modal-title">Edit Data</h2>
                                                                 <button type="button" class="close la la-times" data-dismiss="modal"></button>
                                                             </div>
                                                             <div class="modal-body">
+
                                                                 <div class="input-group mt-5">
-                                                                    <div class="input-addon input-addon-prepend input-group-item">Platform : </div>
-                                                                    <input name="platform" value="<?= $row['platform']; ?>" class="form-control input-group-item" placeholder="<?= $row['platform']; ?>">
+                                                                    <div class="input-addon input-addon-prepend input-group-item">DOB : </div>
+                                                                    <input name="dob" value="<?= $row['dob']; ?>" class="form-control input-group-item" placeholder="<?= $row['dob']; ?>">
                                                                 </div>
+
                                                                 <div class="input-group mt-5">
-                                                                    <div class="input-addon input-addon-prepend input-group-item">Link : </div>
-                                                                    <input name="link" value="<?= $row['link']; ?>" class="form-control input-group-item" placeholder="<?= $row['link']; ?>">
+                                                                    <div class="input-addon input-addon-prepend input-group-item">Age : </div>
+                                                                    <input name="age" value="<?= $row['age']; ?>" class="form-control input-group-item" placeholder="<?= $row['age']; ?>">
                                                                 </div>
+
+                                                                <div class="input-group mt-5">
+                                                                    <div class="input-addon input-addon-prepend input-group-item">Address : </div>
+                                                                    <input name="address" value="<?= $row['address']; ?>" class="form-control input-group-item" placeholder="<?= $row['address']; ?>">
+                                                                </div>
+
+                                                                <div class="input-group mt-5">
+                                                                    <div class="input-addon input-addon-prepend input-group-item">Email : </div>
+                                                                    <input name="email" value="<?= $row['email']; ?>" class="form-control input-group-item" placeholder="<?= $row['email']; ?>">
+                                                                </div>
+
+                                                                <div class="input-group mt-5">
+                                                                    <div class="input-addon input-addon-prepend input-group-item">Phone : </div>
+                                                                    <input name="phone" value="<?= $row['phone']; ?>" class="form-control input-group-item" placeholder="<?= $row['phone']; ?>">
+                                                                </div>
+
                                                                 <div class="mt-5">
                                                                     <label class="switch switch_outlined">
                                                                         <?php
@@ -295,16 +267,14 @@ include "auth.php";
 
                                                                 <div class="flex ltr:ml-auto rtl:mr-auto">
                                                                     <button type="button" class="btn btn_secondary uppercase" data-dismiss="modal">Close</button>
-                                                                    <button type="submit" name="edit_home_SM" class="btn btn_primary ltr:ml-2 rtl:mr-2 uppercase">Save</button>
+                                                                    <button type="submit" name="edit_about_2" class="btn btn_primary ltr:ml-2 rtl:mr-2 uppercase">Save</button>
                                                                 </div>
                                                             </div>
                                                         </form>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="action.php?id=<?= $row['id']; ?>" class="btn btn-icon btn_outlined btn_danger ltr:ml-2 rtl:mr-2">
-                                                <span class="la la-trash-alt"></span>
-                                            </a>
+                                            
                                         </div>
                                     </td>
                                 </tr>
