@@ -7,12 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>test</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 </head>
 
 <body>
-    <!-- <h3>How to Disable Right Click using jQuery</h3> -->
-    <?php date_default_timezone_set("asia/kolkata"); ?>
-    date : <?php echo date("d-m-Y h:i:s"); ?>
+    <button type="button" onclick="create()">Click Me</button>
+
+
 
     <script>
         // $(document).ready(function() {
@@ -21,6 +22,21 @@
         //         return false;
         //     });
         // });
+        function create () {
+            $.ajax({
+                url:"test.php",    //the page containing php script
+                type: "post",    //request type,
+                dataType: 'json',
+                data: {
+                    registration: "success", 
+                    name: "xyz", 
+                    email: "abc@gmail.com"
+                    },
+                success:function(result){
+                    console.log(result.abc);
+                }
+            });
+        }
     </script>
 
 </body>
