@@ -11,29 +11,20 @@
 </head>
 
 <body>
-    <button type="button" onclick="create()">Click Me</button>
-
-
-
+ <button type="button" onclick="create()">Click Me</button>
     <script>
-        // $(document).ready(function() {
-        //     $(document).bind("contextmenu", function(e) {
-        //         // alert('right click disabled');
-        //         return false;
-        //     });
-        // });
         function create () {
             $.ajax({
                 url:"test.php",    //the page containing php script
                 type: "post",    //request type,
-                dataType: 'json',
+                // dataType: 'json',
                 data: {
                     registration: "success", 
                     name: "xyz", 
                     email: "abc@gmail.com"
                     },
                 success:function(result){
-                    console.log(result.abc);
+                    alert(result);
                 }
             });
         }

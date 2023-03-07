@@ -1,7 +1,7 @@
 <?php
-
-if(isset($_POST['registration'])){
-echo 'Registration Successful';
+if($_POST['registration']){
+    echo 'Receive Data';
 }
+// print_r($_POST);
 
 ?>
